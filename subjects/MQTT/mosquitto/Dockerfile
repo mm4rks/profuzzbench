@@ -41,6 +41,7 @@ ARG MAKE_OPT
 
 # Set up fuzzers
 # TODO after PR change this!
+ARG DUMMY=unknown
 RUN git clone https://github.com/mm4rks/aflnet.git && \
     cd aflnet && \
     make clean all $MAKE_OPT && \
@@ -155,4 +156,4 @@ COPY --chown=ubuntu:ubuntu cov_script.sh ${WORKDIR}/cov_script
 USER root
 WORKDIR /home/ubuntu
 
-RUN useradd -rm -d /home/fuzzing -s /bin/bash -g ubuntu -G sudo -u 1001 fuzzing -p "$(openssl passwd -1 fuzzing)"
+# RUN useradd -rm -d /home/fuzzing -s /bin/bash -g ubuntu -G sudo -u 1001 fuzzing -p "$(openssl passwd -1 fuzzing)"
