@@ -154,6 +154,9 @@ COPY --chown=ubuntu:ubuntu cov_script.sh ${WORKDIR}/cov_script
 
 # Switch default user to root
 USER root
+
+# add user mosquitto to root group (needed for mosquitto dropping privileges and writing gcov files)
+RUN useradd mosquitto && usermod -a -G root mosquitto
 WORKDIR /home/ubuntu
 
 # RUN useradd -rm -d /home/fuzzing -s /bin/bash -g ubuntu -G sudo -u 1001 fuzzing -p "$(openssl passwd -1 fuzzing)"
