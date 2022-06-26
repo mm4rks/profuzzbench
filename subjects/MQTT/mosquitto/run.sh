@@ -42,7 +42,9 @@ if $(strstr $FUZZER "afl"); then
     cov_script ${WORKDIR}/${TARGET_DIR}/${OUTDIR}/ 1883 ${SKIPCOUNT} ${WORKDIR}/${TARGET_DIR}/${OUTDIR}/cov_over_time.csv 1
   fi
 
-  gcovr -r . --html --html-details -o index.html
+  # move missing source files from lib/ to src/
+  cp -n lib/*.c src/
+  gcovr -r . --html --html-details -o index.html -f src/
   mkdir ${WORKDIR}/${TARGET_DIR}/${OUTDIR}/cov_html/
   cp *.html ${WORKDIR}/${TARGET_DIR}/${OUTDIR}/cov_html/
 

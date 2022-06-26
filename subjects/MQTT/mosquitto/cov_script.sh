@@ -57,7 +57,7 @@ for f in $(echo $folder/$testdir/id*); do
   #terminate running server(s)
   pkill mosquitto
   
-  $replayer $f MQTT $pno 1 > /dev/null 2>&1 &
+  $replayer $f HTTP $pno 1 > /dev/null 2>&1 &
   timeout -k 0 3s src/mosquitto
 
   wait
