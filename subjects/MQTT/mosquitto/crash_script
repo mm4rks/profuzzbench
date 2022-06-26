@@ -31,7 +31,7 @@ for f in $(echo $folder/$testdir/id* | grep -v "*"); do
 
 
   $replayer $f MQTT $pno 1 >/dev/null 2>&1 &
-  timeout -k 0 --preserve-status 3s src/mosquitto -A
+  timeout -k 0 --preserve-status 3s src/mosquitto
 
   wait
 

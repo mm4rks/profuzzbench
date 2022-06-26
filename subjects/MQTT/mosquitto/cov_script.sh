@@ -37,7 +37,7 @@ for f in $(echo $folder/$testdir/*.raw); do
   pkill mosquitto
 
   $replayer $f HTTP $pno 1 > /dev/null 2>&1 &
-  GCOV_PREFIX=/home/fuzzing/ timeout -k 0 3s src/mosquitto -A
+  GCOV_PREFIX=/home/fuzzing/ timeout -k 0 3s src/mosquitto
   
   wait
   cp /home/fuzzing/home/ubuntu/experiments/mosquitto-gcov/src/*.gcda /home/ubuntu/experiments/mosquitto-gcov/src/ > /dev/null 2>&1
@@ -59,7 +59,7 @@ for f in $(echo $folder/$testdir/id*); do
   pkill mosquitto
   
   $replayer $f HTTP $pno 1 > /dev/null 2>&1 &
-  GCOV_PREFIX=/home/fuzzing/ timeout -k 0 3s src/mosquitto -A
+  GCOV_PREFIX=/home/fuzzing/ timeout -k 0 3s src/mosquitto
 
   wait
   cp /home/fuzzing/home/ubuntu/experiments/mosquitto-gcov/src/*.gcda /home/ubuntu/experiments/mosquitto-gcov/src/ > /dev/null 2>&1
