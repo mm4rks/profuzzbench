@@ -37,10 +37,9 @@ for f in $(echo $folder/$testdir/*.raw); do
   pkill mosquitto
 
   $replayer $f HTTP $pno 1 > /dev/null 2>&1 &
-  GCOV_PREFIX=/home/fuzzing/ timeout -k 0 3s src/mosquitto
+  timeout -k 0 3s src/mosquitto
   
   wait
-  cp /home/fuzzing/home/ubuntu/experiments/mosquitto-gcov/src/*.gcda /home/ubuntu/experiments/mosquitto-gcov/src/ > /dev/null 2>&1
   cov_data=$(gcovr -r . -s | grep "[lb][a-z]*:")
   l_per=$(echo "$cov_data" | grep lines | cut -d" " -f2 | rev | cut -c2- | rev)
   l_abs=$(echo "$cov_data" | grep lines | cut -d" " -f3 | cut -c2-)
@@ -58,11 +57,10 @@ for f in $(echo $folder/$testdir/id*); do
   #terminate running server(s)
   pkill mosquitto
   
-  $replayer $f HTTP $pno 1 > /dev/null 2>&1 &
-  GCOV_PREFIX=/home/fuzzing/ timeout -k 0 3s src/mosquitto
+  $replayer $f MQTT $pno 1 > /dev/null 2>&1 &
+  timeout -k 0 3s src/mosquitto
 
   wait
-  cp /home/fuzzing/home/ubuntu/experiments/mosquitto-gcov/src/*.gcda /home/ubuntu/experiments/mosquitto-gcov/src/ > /dev/null 2>&1
   count=$(expr $count + 1)
   rem=$(expr $count % $step)
   if [ "$rem" != "0" ]; then continue; fi
