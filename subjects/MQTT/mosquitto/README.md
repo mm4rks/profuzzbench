@@ -19,7 +19,7 @@ The following commands run 4 instances of AFLNet and 4 instances of AFLnwe to si
 cd $PFBENCH
 mkdir results-mosquitto
 
-profuzzbench_exec_common.sh mosquitto 4 results-mosquitto aflnet out-mosquitto-aflnet "-t 1000+ -m none -P FTP -D 10000 -q 3 -s 3 -E -K" 3600 5 &
+profuzzbench_exec_common.sh mosquitto 4 results-mosquitto aflnet out-mosquitto-aflnet "-t 1000+ -m none -P MQTT -D 10000 -q 3 -s 3 -E -K" 3600 5 &
 profuzzbench_exec_common.sh mosquitto 4 results-mosquitto aflnwe out-mosquitto-aflnwe "-t 1000+ -m none -D 10000 -K" 3600 5
 ```
 
