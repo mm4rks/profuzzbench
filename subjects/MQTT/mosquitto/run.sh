@@ -25,7 +25,7 @@ if $(strstr $FUZZER "afl"); then
   #Step-1. Do Fuzzing
   #Move to fuzzing folder
   cd $WORKDIR/${TARGET_DIR}
-  timeout -k 0 --preserve-status $TIMEOUT /home/ubuntu/${FUZZER}/afl-fuzz -d -i ${INPUTS} -o $OUTDIR -x ${WORKDIR}/mqtt.dict -N tcp://127.0.0.1/1883 $OPTIONS -c ${WORKDIR}/clean src/mosquitto
+  timeout -k 0 --preserve-status $TIMEOUT /home/ubuntu/${FUZZER}/afl-fuzz -d -i ${INPUTS} -o $OUTDIR -N tcp://127.0.0.1/1883 $OPTIONS -c ${WORKDIR}/clean src/mosquitto
 
   STATUS=$?
 
