@@ -33,6 +33,9 @@ if $(strstr $FUZZER "afl"); then
   #Move to gcov folder
   cd $WORKDIR/mosquitto-gcov
 
+  # move missing source files from lib/ to src/
+  cp -n lib/*.c src/
+
   #The last argument passed to cov_script should be 0 if the fuzzer is afl/nwe and it should be 1 if the fuzzer is based on aflnet
   #0: the test case is a concatenated message sequence -- there is no message boundary
   #1: the test case is a structured file keeping several request messages
@@ -42,8 +45,6 @@ if $(strstr $FUZZER "afl"); then
     cov_script ${WORKDIR}/${TARGET_DIR}/${OUTDIR}/ 1883 ${SKIPCOUNT} ${WORKDIR}/${TARGET_DIR}/${OUTDIR}/cov_over_time.csv 1
   fi
 
-  # move missing source files from lib/ to src/
-  cp -n lib/*.c src/
   gcovr -r . --html --html-details -o index.html -f src/
   mkdir ${WORKDIR}/${TARGET_DIR}/${OUTDIR}/cov_html/
   cp *.html ${WORKDIR}/${TARGET_DIR}/${OUTDIR}/cov_html/
