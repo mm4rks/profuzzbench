@@ -1,0 +1,48 @@
+diff --git a/lib/mosquitto.c b/lib/mosquitto.c
+index 0d68d31..66fff57 100644
+--- a/lib/mosquitto.c
++++ b/lib/mosquitto.c
+@@ -58,22 +58,22 @@ int mosquitto_lib_init(void)
+ 
+ 	if (init_refcount == 0) {
+ #ifdef WIN32
+-		srand((unsigned int)GetTickCount64());
++		srand(0);
+ #elif _POSIX_TIMERS>0 && defined(_POSIX_MONOTONIC_CLOCK)
+ 		struct timespec tp;
+ 
+ 		clock_gettime(CLOCK_MONOTONIC, &tp);
+-		srand((unsigned int)tp.tv_nsec);
++		srand(0);
+ #elif defined(__APPLE__)
+ 		uint64_t ticks;
+ 
+ 		ticks = mach_absolute_time();
+-		srand((unsigned int)ticks);
++		srand(0);
+ #else
+ 		struct timeval tv;
+ 
+ 		gettimeofday(&tv, NULL);
+-		srand(tv.tv_sec*1000 + tv.tv_usec/1000);
++		srand(0);
+ #endif
+ 
+ 		rc = net__init();
+diff --git a/src/mosquitto.c b/src/mosquitto.c
+index 09632f2..8df5c35 100644
+--- a/src/mosquitto.c
++++ b/src/mosquitto.c
+@@ -468,10 +468,10 @@ int main(int argc, char *argv[])
+ 
+ #ifdef WIN32
+ 	GetSystemTime(&st);
+-	srand(st.wSecond + st.wMilliseconds);
++	srand(0);
+ #else
+ 	gettimeofday(&tv, NULL);
+-	srand((unsigned int)(tv.tv_sec + tv.tv_usec));
++	srand(0);
+ #endif
+ 
+ #ifdef WIN32

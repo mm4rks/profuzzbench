@@ -64,8 +64,8 @@ ENV AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES=1 \
 
 RUN mkdir $WORKDIR
 
-COPY --chown=ubuntu:ubuntu fuzzing.patch ${WORKDIR}/fuzzing.patch
-COPY --chown=ubuntu:ubuntu gcov.patch ${WORKDIR}/gcov.patch
+COPY --chown=ubuntu:ubuntu srand.patch ${WORKDIR}/srand.patch
+COPY --chown=ubuntu:ubuntu sighandler.patch ${WORKDIR}/sighandler.patch
 
 USER root
 RUN apt -y install automake
@@ -114,6 +114,8 @@ RUN wget https://github.com/warmcat/libwebsockets/archive/v${LWS_VERSION}.tar.gz
 RUN wget https://github.com/eclipse/mosquitto/archive/refs/tags/v${MOSQUITTO_VERSION}.tar.gz -O /tmp/mosq.tar.gz && \
     mkdir -p ${WORKDIR}/mosquitto && \
     tar --strip=1 -xf /tmp/mosq.tar.gz -C ${WORKDIR}/mosquitto && \
+    patch -d ${WORKDIR}/mosquitto -p1 < ${WORKDIR}/srand.patch && \
+    patch -d ${WORKDIR}/mosquitto -p1 < ${WORKDIR}/sighandler.patch && \
     make -C ${WORKDIR}/mosquitto -j "$(nproc)" \
         CC="afl-clang-fast" \
         CXX="afl-clang-fast++" \
