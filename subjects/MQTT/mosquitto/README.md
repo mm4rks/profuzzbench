@@ -19,8 +19,8 @@ The following commands run 4 instances of AFLNet and 4 instances of AFLnwe to si
 cd $PFBENCH
 mkdir results-mosquitto
 
-profuzzbench_exec_common.sh mosquitto 4 results-mosquitto aflnet out-mosquitto-aflnet "-P MQTT -D 10000 -E -K" 3600 5 &
-profuzzbench_exec_common.sh mosquitto 4 results-mosquitto aflnwe out-mosquitto-aflnwe "-D 10000 -K" 3600 5
+profuzzbench_exec_common.sh mosquitto 4 results-mosquitto aflnet out-mosquitto-aflnet "-m none -P MQTT -D 10000 -E -K" 3600 5 &
+profuzzbench_exec_common.sh mosquitto 4 results-mosquitto aflnwe out-mosquitto-aflnwe "-m none -D 10000 -K" 3600 5
 ```
 
 ## Step-3. Collect the results
