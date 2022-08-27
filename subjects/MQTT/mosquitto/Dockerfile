@@ -41,7 +41,6 @@ ARG MAKE_OPT
 
 # Set up fuzzers
 # TODO after PR change this!
-ARG DUMMY=unknown
 RUN git clone https://github.com/mm4rks/aflnet.git && \
     cd aflnet && \
     make clean all $MAKE_OPT && \
@@ -75,6 +74,7 @@ RUN apt -y install automake
 ENV ASAN_OPTIONS='abort_on_error=1:symbolize=0:detect_leaks=0:detect_stack_use_after_return=1:detect_container_overflow=0:poison_array_cookie=0:malloc_fill_byte=0:max_malloc_fill_size=16777216'
 
 
+# target and dependencies versions
 ENV LWS_VERSION=4.2.1 \
     CJSON_VERSION=1.7.14 \
     MOSQUITTO_VERSION=2.0.14
@@ -109,8 +109,6 @@ RUN wget https://github.com/warmcat/libwebsockets/archive/v${LWS_VERSION}.tar.gz
     make -j "$(nproc)" libcjson.a
 
 # Set up mosquitto for fuzzing
-# TODO? git checkout commit instead of download release?
-# TODO patch
 RUN wget https://github.com/eclipse/mosquitto/archive/refs/tags/v${MOSQUITTO_VERSION}.tar.gz -O /tmp/mosq.tar.gz && \
     mkdir -p ${WORKDIR}/mosquitto && \
     tar --strip=1 -xf /tmp/mosq.tar.gz -C ${WORKDIR}/mosquitto && \
